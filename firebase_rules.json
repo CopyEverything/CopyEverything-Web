@@ -1,0 +1,19 @@
+{
+	"rules": {
+		".read": false,
+		".write": false,
+		
+		"copies": {
+			
+			"$userId": {
+			  ".read": "auth != null && auth.uid == $userId",
+  			".write": "auth != null && auth.uid == $userId",
+			  
+			  ".indexOn": ["timestamp"],
+			  "$msgId": {
+  				".validate": "newData.hasChildren(['content', 'timestamp']) && newData.child('content').isString() && newData.child('timestamp').isNumber()"
+			  }
+			}
+		}
+	}
+}
