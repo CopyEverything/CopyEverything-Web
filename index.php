@@ -1,5 +1,5 @@
 <head>
-	<script src="particles.js"></script>
+	<script src="particles.min.js"></script>
 	<script src="firebase.js"></script>
 	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
 	<link rel="stylesheet" href="bootstrap.min.css" type="text/css">
