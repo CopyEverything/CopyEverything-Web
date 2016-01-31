@@ -11,7 +11,7 @@
 	
 	<script>
 	var ref = new Firebase("https://vivid-inferno-6279.firebaseio.com/");
-    
+			
 	
 	$(function() {
 		$('#registerlink').on("click", function() {
@@ -51,17 +51,17 @@
 				return false;
 			}
 			
-			ref.createUser({
-					email    : email,
-					password : pass1
-				}, function(error, userData) {
-					if (error) {
-						errormsg("Error creating user: "+ error.message);
-						console.log(error);
-					} else {
-						successmsg("Successfully registered with email: " + email);
-						$('#register-block').slideUp();
-					}
+			$.ajax({
+				method: "POST",
+				url: "/register.php",
+				data: { email: email, pass1: pass1, pass2: pass2 },
+				dataType: "json"
+			}).done(function(ret) {
+				if(ret[0]) {
+					successmsg(ret[1]);
+				} else {
+					errormsg(ret[1]);
+				}
 			});
 			
 			
