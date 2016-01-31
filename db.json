@@ -1,0 +1,12 @@
+{
+	"users": {
+		"email": "email@email.com",
+		"userID": "userid"
+	},
+	"copies": {
+		"$userId": {
+			"content": "abcabcabcabc",
+			"timestamp": 1234234567
+		}
+	}
+}
