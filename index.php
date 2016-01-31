@@ -1,11 +1,11 @@
 <head>
-	<script src="particles.min.js"></script>
-	<script src="firebase.js"></script>
+	<script src="js/particles.min.js"></script>
+	<script src="js/firebase.js"></script>
 	<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
-	<link rel="stylesheet" href="bootstrap.min.css" type="text/css">
+	<link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
 	<link href='https://fonts.googleapis.com/css?family=Lobster+Two:400,700' rel='stylesheet' type='text/css'>
 	
-	<link rel="stylesheet" href="style.css" type="text/css">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta charset="UTF-8">
 	
