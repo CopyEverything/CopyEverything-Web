@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+	<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+	<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+	<script>
+	
+	$(function() {
+		//the following connects to the host same host which we are located.
+		//to connect to a specific host, do: socket = io('http://copyeverything.tk', {multiplex: false});
+		var socket = io({multiplex: false, secure: true});
+		var authed = false;
+		var username = "", password = "";
+		
+		$('#auth').submit(function(){
+			username = $('#u').val();
+			password = $('#p').val();
+			
+			socket.emit('auth', { //begin auth
+				username: username, 
+				password: password
+			});
+			return false;
+		});
+		$('#msg').submit(function(){
+			socket.emit('new client copy', $('#m').val());
+			$('#m').val('');
+			return false;
+		});
+		
+		
+		//messages from server -> client
+		socket.on("auth resp", function(data) {
+			console.log("auth response: ", data);
+			
+			if(data[0]) {
+				$('#status').html("authed - " + data[1]);
+			} else {
+				$('#status').html("connected - " + data[1]);
+			}
+		});
+		socket.on("new server copy", function(copytext) {
+			$("#cpy").append("<li>"+copytext+"</li>");
+		});
+		
+		
+		//to display the connection status:
+		socket.on("connect", function() {
+			if(authed)
+				$('#status').html("authed");
+			else
+				$('#status').html("connected");
+		});
+		socket.on("disconnect", function() {
+			$('#status').html("diconnected");
+			authed = false;
+			
+			if(username && password) { //auto re-login
+				socket.emit('auth', {
+					username: username, 
+					password: password
+				});
+			}
+		});
+	});
+	</script>
+</head>
+
+<body>
+	status: <span id="status"></span><br><br>
+	<form id="auth" action="" method="post">
+		<input id="u" autocomplete="off" placeholder="username"/><br><input id="p" autocomplete="off" placeholder="password"/><input type=submit />
+	</form>
+	
+	<br>New copy:<br>
+	<form id="msg" action="" method="post">
+		<input id="m" autocomplete="off" /><input type=submit />
+	</form>
+	<br>
+	<h4>Copies:</h4>
+	<ul id="cpy"></ul>
+</body>
+</html>

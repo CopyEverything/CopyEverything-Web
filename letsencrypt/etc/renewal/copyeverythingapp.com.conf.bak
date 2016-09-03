@@ -1,0 +1,70 @@
+#cert = :config/live/:hostname/cert.pem
+cert = /root/letsencrypt/etc//live/copyeverythingapp.com/cert.pem
+privkey = /root/letsencrypt/etc//live/copyeverythingapp.com/privkey.pem
+chain = /root/letsencrypt/etc//live/copyeverythingapp.com/chain.pem
+fullchain = /root/letsencrypt/etc//live/copyeverythingapp.com/fullchain.pem
+
+# Options and defaults used in the renewal process
+[renewalparams]
+apache_enmod = a2enmod
+no_verify_ssl = False
+ifaces = None
+apache_dismod = a2dismod
+register_unsafely_without_email = False
+uir = None
+installer = none
+config_dir = /root/letsencrypt/etc/
+text_mode = True
+# junk?
+# https://github.com/letsencrypt/letsencrypt/issues/1955
+func = <function obtain_cert at 0x30c9500>
+prepare = False
+work_dir = /root/letsencrypt/var/lib/
+tos = True
+init = False
+http01_port = None
+duplicate = False
+# this is for the domain
+key_path = /root/letsencrypt/etc//live/copyeverythingapp.com/privkey.pem
+nginx = False
+fullchain_path = :fullchain_path
+email = copyeverythingapp@gmail.com
+csr = None
+agree_dev_preview = None
+redirect = None
+verbose_count = -3
+config_file = None
+renew_by_default = True
+hsts = False
+authenticator = webroot
+domains = copyeverythingapp.com, #comma,delimited,list
+rsa_key_size = 2048
+# starts at 0 and increments at every renewal
+checkpoints = 2
+manual_test_mode = False
+apache = False
+cert_path = :cert_path
+webroot_path = , # comma,delimited,list
+strict_permissions = False
+apache_server_root = /etc/apache2
+# https://github.com/letsencrypt/letsencrypt/issues/1948
+account = 0f23793e15830f6bcb96ddf47950b72c
+manual_public_ip_logging_ok = False
+chain_path = :chain_path
+standalone = False
+manual = False
+server = https://acme-v01.api.letsencrypt.org/directory
+standalone_supported_challenges = "http-01,tls-sni-01"
+webroot = True
+apache_init_script = None
+user_agent = None
+apache_ctl = apache2ctl
+apache_le_vhost_ext = -le-ssl.conf
+debug = False
+tls_sni_01_port = 443
+logs_dir = /root/letsencrypt/var/log/
+configurator = None
+[[webroot_map]]
+# :hostname = :webroot_path
+copyeverythingapp.com = 
+ = 
