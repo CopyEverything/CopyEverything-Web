@@ -63,6 +63,15 @@ r.connect( {host: 'localhost', port: 28015}, function(err, conn) {
     doneDbConnect();
 });
 
+function registerPostHandler(req, res) {
+    //register new user:                                                                                    
+    var email = req.body.email;
+    var pass = req.body.pass;
+
+    registerUser(email, pass, function(ret) {
+        res.send(JSON.stringify(ret));
+    });
+}
 
 function doneDbConnect() {
 	app.use(exp.static('static'));
@@ -82,16 +91,8 @@ function doneDbConnect() {
 		//index:
 		res.sendFile(__dirname + '/index.html');
 	});
-	
-	app.post('/', function(req, res) {
-		//register new user:
-		var email = req.body.email;
-		var pass = req.body.pass;
-			
-		registerUser(email, pass, function(ret) {
-			res.send(JSON.stringify(ret));
-		});
-	})
+
+        app.post('/register', registerPostHandler);
 	
 	svr.listen(443, function(){
 	    console.log('listening on *:443');

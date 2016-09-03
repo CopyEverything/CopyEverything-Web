@@ -31,8 +31,6 @@
 				});
 			}
 			
-			console.log("sub form");
-			
 			var email = $('#register-input-email').val();
 			var pass1 = $('#register-input-pass1').val();
 			var pass2 = $('#register-input-pass2').val();
@@ -52,7 +50,7 @@
 			
 			$.ajax({
 				method: "POST",
-				url: "/",
+				url: "/register",
 				data: { email: email, pass: pass1 },
 				dataType: "json"
 			}).done(function(ret) {
