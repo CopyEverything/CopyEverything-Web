@@ -6,9 +6,9 @@ var http = require('http');
 var bcrypt = require('bcryptjs');
 var validator = require('validator');
 var uuid = require('uuid');
-var couchURL = 'http://localhost:5984';
-var couch = require('nano')(couchURL);
 var db = require('./db');
+var couchURL = 'http://' + db.user + ':' + db.pass +'@localhost:5984';
+var couch = require('nano')(couchURL);
 var svr = null;
 
 var production = false;
@@ -53,8 +53,8 @@ couch.auth(db.user, db.pass, function(err, body, headers){
 	console.log(err);
 	return;
     }
-    
-    couch.config.url = couchURL;
+
+    couch.config.url = 'http://localhost:5984';
     couch.config.cookie = headers['set-cookie'];
     doneDbConnect();
 });

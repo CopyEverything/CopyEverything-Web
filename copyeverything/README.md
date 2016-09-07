@@ -12,3 +12,5 @@ Create a user in CouchDB's futon with the following credententials (change them 
 var user = 'admin';
 var pass = 'strongpasswordCE';
 
+In the config file (likely located at /usr/local/etc/couchdb/default.ini), change the following:
+1.) Set require_valid_user to true.
