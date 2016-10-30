@@ -11,24 +11,24 @@ couch.auth(db.user, db.pass, function (err, body, headers) {
     couch.config.cookie = headers['set-cookie'];
     
     couch.db.create("copyeverything",
-		        function(err, body){
-			    if(err){
-				    console.log("Error creating db", err);
+		    function(err, body){
+			if(err){
+			    console.log("Error creating db", err);
+			}else{
+			    console.log("Created db");
+			    
+			    couch.request({
+				path: 'copyeverything/_security',
+				method: 'PUT',
+				body: {admins: { names: [], roles: [] }, members: { names: ["admins"], roles: [] } }
+			    }, function(err, body){
+				if(err){
+				    console.log("Failed to add security", err);
 				}else{
-				        console.log("Created db");
-				        
-				        couch.request({
-					    path: 'copyeverything/_security',
-					    method: 'PUT',
-					    body: {admins: { names: [], roles: [] }, members: { names: ["admins"], roles: [] } }
-					        }, function(err, body){
-						    if(err){
-							    console.log("Failed to add security", err);
-							}else{
-							        console.log("Added security measures");
-							    }
-						        });
-				        
-				    }
-			        });
+				    console.log("Added security measures");
+				}
+			    });
+			    
+			}
+		    });
 });

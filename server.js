@@ -1,3 +1,4 @@
+
 var exp = require('express');
 var app = exp();
 var bodyParser = require('body-parser'); //for post parameters
@@ -171,10 +172,12 @@ function registerUser(email, pass1, pass2, cb) {
     db.head(email, function(err, _, headers) {
 	if (err && err.statusCode == 404){
 	    var dbname = "user_" + uuid.v1();
+	    var registercode = uuid.v1();
 	    var dbpass = Math.random().toString(36).slice(-20);
 
 	    bcrypt.hash(pass1, 8, function(err, hash) {
-		db.insert({_id: email, email: email, hash: hash, dbname: dbname, dbpass: dbpass, creation_date: JSON.stringify(new Date())}, email,
+		db.insert({_id: email, email: email, hash: hash, dbname: dbname, dbpass: dbpass,
+			   registercode: registercode, verified: false, creationdate: JSON.stringify(new Date()) }, email,
 			  function(err, body) {
 			      if(err){
 				  return process.nextTick(cb.bind(undefined, createJsonResponse(false, "Backend Error")));
@@ -184,7 +187,15 @@ function registerUser(email, pass1, pass2, cb) {
 				      if(err){
 					  return process.nextTick(cb.bind(undefined, createJsonResponse(false, "Backend Error")));
 				      }else{
-					  return process.nextTick(cb.bind(undefined, createJsonResponse(true, "Registered successfully with email: " + email, dbname, dbpass)));
+					  db.insert({_id: email, email: email, hash: hash, dbname: dbname, dbpass: dbpass,
+						     registercode: registercode, verified: false, creationdate: JSON.stringify(new Date()) }, email,
+						    function(err, body) {
+							if(err){
+							    return process.nextTick(cb.bind(undefined, createJsonResponse(false, "Backend Error")));
+							}else{
+							    return process.nextTick(cb.bind(undefined, createJsonResponse(true, "Registered successfully with email: " + email, dbname, dbpass)));}
+						    });
+				      }})
 				      }
 				  });
 			      }
